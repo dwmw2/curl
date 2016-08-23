@@ -29,17 +29,17 @@ CURLOPT_SSLCERT \- set SSL client certificate
 CURLcode curl_easy_setopt(CURL *handle, CURLOPT_SSLCERT, char *cert);
 .SH DESCRIPTION
 Pass a pointer to a zero terminated string as parameter. The string should be
-the file name of your client certificate. The default format is "P12" on
-Secure Transport and "PEM" on other engines, and can be changed with
-\fICURLOPT_SSLCERTTYPE(3)\fP.
+the file name of your client certificate or a PKCS#11 URI as defined in
+RFC7512. The default format is automatically detected, but can be overridden
+with \fICURLOPT_SSLCERTTYPE(3)\fP if necessary.
 
 With NSS or Secure Transport, this can also be the nickname of the certificate
-you wish to authenticate with as it is named in the security database. If you
-want to use a file from the current directory, please precede it with "./"
-prefix, in order to avoid confusion with a nickname.
+you wish to authenticate with as it is named in the security database.
 
-When using a client certificate, you most likely also need to provide a
-private key with \fICURLOPT_SSLKEY(3)\fP.
+When using a client certificate, you will likely also need to provide a
+private key with \fICURLOPT_SSLKEY(3)\fP unless the key is also located by
+the same identifier string as the certificate (i.e. in the same file or
+referenced by the same PKCS#11 URI).
 .SH DEFAULT
 NULL
 .SH PROTOCOLS

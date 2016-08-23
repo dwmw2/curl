@@ -29,14 +29,20 @@ CURLOPT_SSLKEYTYPE \- set type of the private key file
 CURLcode curl_easy_setopt(CURL *handle, CURLOPT_SSLKEYTYPE, char *type);
 .SH DESCRIPTION
 Pass a pointer to a zero terminated string as parameter. The string should be
-the format of your private key. Supported formats are "PEM", "DER" and "ENG".
+the format of your private key. Supported formats are "PEM", "DER", "ENG" and
+"AUTO".
 
 The format "ENG" enables you to load the private key from a crypto engine. In
 this case \fICURLOPT_SSLKEY(3)\fP is used as an identifier passed to the
 engine. You have to set the crypto engine with \fICURLOPT_SSLENGINE(3)\fP.
 \&"DER" format key file currently does not work because of a bug in OpenSSL.
 .SH DEFAULT
-"PEM"
+"AUTO"
+
+All types of key files, and PKCS#11 URIs as defined in RFC7512, should be
+automatically detected. If you ever need to change the key type from "AUTO"
+for anything but an opaque identifier given to another type of crypto engine,
+then this auto-detection is failing and you should file a bug.
 .SH PROTOCOLS
 All TLS based protocols: HTTPS, FTPS, IMAPS, POP3S, SMTPS etc.
 .SH EXAMPLE

@@ -22,19 +22,22 @@
 .\"
 .TH CURLOPT_SSLKEY 3 "17 Jun 2014" "libcurl 7.37.0" "curl_easy_setopt options"
 .SH NAME
-CURLOPT_SSLKEY \- specify private keyfile for TLS and SSL client cert
+CURLOPT_SSLKEY \- specify private key for TLS and SSL client cert
 .SH SYNOPSIS
 #include <curl/curl.h>
 
 CURLcode curl_easy_setopt(CURL *handle, CURLOPT_SSLKEY, char *keyfile);
 .SH DESCRIPTION
 Pass a pointer to a zero terminated string as parameter. The string should be
-the file name of your private key. The default format is "PEM" and can be
+the file name of your private key. The default format is "AUTO" and can be
 changed with \fICURLOPT_SSLKEYTYPE(3)\fP.
 
 (iOS and Mac OS X only) This option is ignored if curl was built against
 Secure Transport. Secure Transport expects the private key to be already
 present in the keychain or PKCS#12 file containing the certificate.
+
+If unspecified, it is assumed that the key can be found in the same location
+as the certificate specified by \fICURLOPT_SSLCERT(3)\fP.
 .SH DEFAULT
 NULL
 .SH PROTOCOLS
